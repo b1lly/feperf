@@ -23,10 +23,11 @@ $font-color: #fff;
   #metrics-wrapper {
     font-size: 0;
     list-style-type: none;
+    font-style: normal;
     margin: 0;
     padding: 0;
     border-bottom: 1px #000 solid;
-    box-shadow: 3px 3px 2px #c0c0c0;
+    box-shadow: 2px 2px 4px #555;
 
     > li {
       > span { vertical-align: middle; }
@@ -46,12 +47,12 @@ $font-color: #fff;
   .metric-details {
     display: none;
     list-style-type: none;
-    margin: 0 0 0 -5px;
+    margin: 0 0 0 -10px;
     padding: 0;
     top: 32px;
     position: absolute;
     background-color: #444;
-    box-shadow: 3px 3px 2px #c0c0c0;
+    box-shadow: 2px 2px 4px #555;
     border-radius: 2px;
     border: 1px #000 solid;
 

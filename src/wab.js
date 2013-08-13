@@ -12,6 +12,8 @@
  * - Total CSS Rules per page
  * - JS Profiling
  * - GUI to support data
+ * - Observer Pattern to subscribe GUI to Data
+ * - AJAX tracking support
  */
 var Wab = (function(Wab, window, document, undefined) {
   var _wab = Wab || {};
@@ -388,16 +390,16 @@ Wab.DebugToolbar = (function(Wab, window, document, undefined) {
 
     parsingLatency : {
       totalLatency : 60,
-      domParsing : 50,
-      resourceParsing : 10
+      domParsing : 300,
+      resourceParsing : 100
     },
 
     resourceLatency : {
-      link : 50,
-      script : 50,
-      css : 50,
-      img : 50,
-      xhr : 50
+      link : 100,
+      script : 100,
+      css : 300,
+      img : 500,
+      xmlhttprequest : 100
     }
   };
 
@@ -481,7 +483,7 @@ Wab.DebugToolbar = (function(Wab, window, document, undefined) {
       script : $wabToolbar.find('.resource-script'),
       css : $wabToolbar.find('.resource-css'),
       img : $wabToolbar.find('.resource-img'),
-      xhr : $wabToolbar.find('.resource-xhr')
+      xmlhttprequest : $wabToolbar.find('.resource-xhr')
     };
 
     // Update DOM latency value
