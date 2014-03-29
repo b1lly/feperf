@@ -5,8 +5,9 @@
  * @requires wab.debug module
  * @requires jQuery 1.9.1+
  */
-wab.toolbar = (function(wab, window, document, undefined) {
-  var _toolbar = wab.toolbar || {},
+wab.provide('wab.debug.toolbar');
+(function(wab, window, document, undefined) {
+  var _toolbar = wab.debug.toolbar,
       _performanceMetrics = {};
 
   // Max expected speeds before considered slow --

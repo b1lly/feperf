@@ -2,8 +2,9 @@
  * Debugging helper methods to track performance --
  * e.g. Network Latency, Parsing Latency, Event Listeners, Memory usage
  */
-wab.debug = (function(wab, window, document, undefined) {
-  var _debug = wab.debug || {};
+wab.provide('wab.debug');
+(function(wab, window, document, undefined) {
+  var _debug = wab.debug;
 
   _debug.eventListeners = {
     count: 0,
