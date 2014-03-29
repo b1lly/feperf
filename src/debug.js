@@ -191,16 +191,16 @@ wab.provide('wab.debug');
    * @returns {Object} js timestamp of execution time
    */
   _debug.profileJs = function(fn) {
-    var start = new Date().getTime();
+    var start = new Date().getMilliseconds();
 
     if (typeof fn === 'function') {
-      fn();
+      fn.call(this);
     } else {
       wab.warn('Please provide a callback function!');
       return false;
     }
 
-    return new Date().getTime() - start;
+    return new Date().getMilliseconds() - start;
   };
 
   /**
