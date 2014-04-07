@@ -106,7 +106,8 @@ wab.provide('wab.debug.toolbar');
     var domMap = {
       totalLatency : $wabToolbar.find('.parsing-latency'),
       domParsing : $wabToolbar.find('.dom-parsing'),
-      resourceParsing : $wabToolbar.find('.resource-parsing')
+      resourceParsing : $wabToolbar.find('.resource-parsing'),
+      jsParsing: $wabToolbar.find('.js-parsing')
     };
 
     _toolbar.updateDom(domMap, data, 'parsingLatency');
@@ -176,7 +177,6 @@ wab.provide('wab.debug.toolbar');
       $(this).find('.metric-details').stop().fadeToggle('fast');
     });
   };
-
 
   /**
    * A utility effect to show the user what

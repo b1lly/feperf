@@ -36,8 +36,15 @@ wab.provide('wab.debug.profiler');
    */
   Profiler.prototype.stop = function() {
     this.endTime = new Date();
-    this.timeElapsed = this.endTime.getMilliseconds() - this.startTime.getMilliseconds();
+    this.timeElapsed = this.endTime - this.startTime;
     wab.log(this.timeElapsed);
+  };
+
+  /**
+   * Returns the timeElapsed for a particular profile
+   */
+  Profiler.prototype.getTime = function() {
+    return this.timeElapsed;
   };
 
   /**

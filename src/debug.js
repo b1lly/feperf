@@ -6,6 +6,10 @@ wab.provide('wab.debug');
 (function(wab, window, document, undefined) {
   var _debug = wab.debug;
 
+  // Contains a list of all the page stats from our API
+  _debug.pageStats = {};
+
+  // Contains a list of all the event listeners on the page
   _debug.eventListeners = {
     count: 0,
     listeners : []
@@ -17,11 +21,15 @@ wab.provide('wab.debug');
     this.profileAllJs();
     this.trackEventListeners();
 
-    return {
+    var stats = {
       network : this.profileNetwork(),
       parsing : this.profilePageLoad(),
       events : this.eventListeners
-    }
+    };
+
+    _debug.pageStats = wab.extend(_debug.pageStats, stats);
+
+    return _debug.pageStats;
   };
 
   /**
@@ -249,15 +257,21 @@ wab.provide('wab.debug');
    */
   _debug.profilePageLoad = function() {
     var _timing,
+        jsLatency = 0;
         parsingLatency = {};
 
     if (_debug.hasTimingSupport()) {
       _timing = window.performance.timing;
 
+      if (_debug.profiler) {
+        jsLatency = wab.debug.profiler.get('jsLoad').getTime();
+      }
+
       parsingLatency = {
-        totalLatency : _timing.loadEventEnd - _timing.responseEnd,
+        totalLatency : _timing.loadEventEnd - _timing.responseEnd + jsLatency,
         domParsing : _timing.domInteractive - _timing.domLoading,
-        resourceParsing : _timing.domComplete - _timing.domInteractive
+        resourceParsing : _timing.domComplete - _timing.domInteractive,
+        jsParsing: jsLatency
       };
     } else {
       wab.warn('Browser not supported yet!');
