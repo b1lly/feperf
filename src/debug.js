@@ -57,7 +57,7 @@ wab.provide('wab.debug');
    */
   _debug.appendMilliseconds = function(obj) {
     if (typeof obj === 'object') {
-      for (property in obj) {
+      for (var property in obj) {
         obj[property] = obj[property] >= 0 ? Math.round(obj[property] * 100) / 100 + 'ms' : undefined;
       }
     } else {
@@ -109,11 +109,11 @@ wab.provide('wab.debug');
   _debug.getLatencySumByInitiator = function(collection) {
     var latencySumByInitiator = {};
 
-    for (type in collection) {
+    for (var type in collection) {
       latencySumByInitiator[type] = 0;
 
       // Add up all the resources durations
-      for (resource in collection[type]) {
+      for (var resource in collection[type]) {
         latencySumByInitiator[type] += collection[type][resource].duration;
       }
     }
@@ -130,7 +130,7 @@ wab.provide('wab.debug');
    */
   _debug.getResourceLatencyTotal = function(collection) {
     var totalLatency = 0;
-    for (resource in collection) {
+    for (var resource in collection) {
       totalLatency += parseFloat(collection[resource]);
     }
 
@@ -144,7 +144,7 @@ wab.provide('wab.debug');
   _debug.getResourceCountByInitiator = function(collection) {
     var resourceCountByInitiator = {};
 
-    for (type in collection) {
+    for (var type in collection) {
       resourceCountByInitiator[type] = collection[type].length;
     }
 
@@ -210,7 +210,8 @@ wab.provide('wab.debug');
    */
   _debug.profileNetwork = function() {
     var _timing,
-        pageLoad = resources = {};
+        resources = {},
+        networkLatency = {};
 
     if (_debug.hasTimingSupport()) {
         _timing = window.performance.timing;
@@ -224,7 +225,7 @@ wab.provide('wab.debug');
           request : _timing.responseStart - _timing.requestStart,
           response : _timing.responseEnd - _timing.responseStart,
 
-          totalLatency : _timing.responseEnd - _timing.fetchStart,
+          totalLatency : _timing.responseEnd - _timing.fetchStart
         };
 
         networkLatency = _debug.appendMilliseconds(networkLatency);

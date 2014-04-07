@@ -41,14 +41,15 @@ var wab = (function(window, document, undefined) {
      * @param {boolean=false} warning display this message as a warning or a subtle message
      */
     log: function(msg, trace, warning) {
-      var caller = arguments.callee.caller.name || 'anonymous',
-          trace = trace || false,
-          warning = warning || false;
+      var caller = arguments.callee.caller.name || 'anonymous';
+
+      trace = trace || false,
+      warning = warning || false;
 
       if (typeof window.console === 'object' &&
           typeof window.console.log === 'function') {
             trace ? msg = caller + ': ' + msg : msg;
-            warning ? console.warn(msg) : console.log(msg);
+            warning ? window.console.warn(msg) : window.console.log(msg);
       } else {
         alert('Get a modern browser you noob!');
       }
@@ -59,7 +60,7 @@ var wab = (function(window, document, undefined) {
      * @param {string} msg the message to log
      */
     warn: function(msg, trace) {
-      _wab.log(msg, trace, true);
+      this.log(msg, trace, true);
     },
 
     /**
@@ -76,7 +77,7 @@ var wab = (function(window, document, undefined) {
 
       node = node.firstChild;
       while (node) {
-        _wab.walkTheDom(node, fn);
+        this.walkTheDom(node, fn);
         node = node.nextSibling;
       }
     },

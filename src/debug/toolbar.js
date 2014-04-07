@@ -124,7 +124,7 @@ wab.provide('wab.debug.toolbar');
     _toolbar.updateDom(domMap, data.latencySumByInitiator, 'resourceLatency');
 
     // Update DOM resource count
-    for (metric in data.resourceCountByInitiator) {
+    for (var metric in data.resourceCountByInitiator) {
       domMap[metric].first()
         .removeClass('red green yellow')
         .html(data.resourceCountByInitiator[metric]);
