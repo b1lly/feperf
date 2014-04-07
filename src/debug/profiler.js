@@ -1,8 +1,5 @@
 /**
  * Parsing/profiling module
- *
- * @requires wab.debug module
- * @requires jQuery 1.9.1+
  */
 wab.provide('wab.debug.profiler');
 (function(wab, window, document, undefined) {
