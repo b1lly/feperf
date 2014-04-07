@@ -56,8 +56,10 @@ wab.provide('wab.debug.toolbar');
         this.setParsingLatency(_performanceMetrics.parsing.parsingLatency);
         this.bindDetails();
         this.linkMetricsToBar();
+        this.bindClose();
 
         $wabToolbar.fadeIn(); // Display our Toolbar to user
+        $document.find('body').css('margin-top', $wabToolbar.outerHeight(true));
       } else {
         wab.log('This toolbar requires the wab.debug module!');
         return false;
@@ -190,6 +192,16 @@ wab.provide('wab.debug.toolbar');
         } else {
           $parent.find('.bar span:eq(' + $self.index() + ')').toggleClass('hover');
         }
+    });
+  };
+
+  /**
+   * Hides the toolbar on click
+   */
+  _toolbar.bindClose = function() {
+    $wabToolbar.find('.js-toggle-close').on('click', function() {
+      $wabToolbar.hide();
+      $document.find('body').css('margin-top', 'auto');
     });
   };
 

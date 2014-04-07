@@ -18,6 +18,8 @@
 
 var wab = (function(window, document, undefined) {
   return {
+    loggin: false,
+
     /**
      * Provide a namespace for a particular module if it doesn't already exist
      * to enable modules to be augemented much easier
@@ -41,17 +43,19 @@ var wab = (function(window, document, undefined) {
      * @param {boolean=false} warning display this message as a warning or a subtle message
      */
     log: function(msg, trace, warning) {
-      var caller = arguments.callee.caller.name || 'anonymous';
+      if (this.logging) {
+        var caller = arguments.callee.caller.name || 'anonymous';
 
-      trace = trace || false,
-      warning = warning || false;
+        trace = trace || false,
+        warning = warning || false;
 
-      if (typeof window.console === 'object' &&
-          typeof window.console.log === 'function') {
-            trace ? msg = caller + ': ' + msg : msg;
-            warning ? window.console.warn(msg) : window.console.log(msg);
-      } else {
-        alert('Get a modern browser you noob!');
+        if (typeof window.console === 'object' &&
+            typeof window.console.log === 'function') {
+              trace ? msg = caller + ': ' + msg : msg;
+              warning ? window.console.warn(msg) : window.console.log(msg);
+        } else {
+          alert('Get a modern browser you noob!');
+        }
       }
     },
 
