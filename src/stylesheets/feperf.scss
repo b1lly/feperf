@@ -1,0 +1,121 @@
+$wab-green: #4bac44;
+$wab-red: #e26363;
+$wab-yellow: #babe4d;
+
+$font-color: #fff;
+
+#wab-debug-toolbar {
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-family: verdana;
+  font-size: 9px;
+  color: #fff;
+  letter-spacing: 1px;
+  font-weight: bold;
+  z-index: 9999;
+
+  &.detailed {
+    font-size: 14px;
+  }
+
+  #metrics-wrapper {
+    font-size: 0;
+    list-style-type: none;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px #000 solid;
+    box-shadow: 2px 2px 4px #555;
+
+    > li {
+      > span { vertical-align: middle; }
+
+      font-size: 9px;
+      display: inline-block;
+      border-right: 1px #444 solid;
+      padding: 10px 10px;
+
+      &:hover {
+        cursor: pointer;
+        background-color: #222;
+      }
+    }
+  }
+
+  .metric-details {
+    display: none;
+    list-style-type: none;
+    margin: 0 0 0 -10px;
+    padding: 0;
+    top: 32px;
+    position: absolute;
+    background-color: #444;
+    box-shadow: 2px 2px 4px #555;
+    border-radius: 2px;
+    border: 1px #000 solid;
+
+    > li {
+      padding: 10px;
+      font-weight: normal;
+      border-bottom: 1px #555 dotted;
+
+      &:last-child { border-bottom: 0; }
+
+      .metric-title {
+        display: inline-block;
+        min-width: 100px;
+      }
+
+      .metric-total {
+        display: inline-block;
+        color: #c0c0c0;
+      }
+
+      &:hover,
+      &.hover { background-color: #333; }
+    }
+  }
+
+  .green { color: $wab-green; }
+  .red { color: $wab-red; }
+  .yellow { color: $wab-yellow; }
+
+  .bar {
+    .green { background-color: $wab-green; }
+    .red { background-color: $wab-red; }
+    .yellow { background-color: $wab-yellow; }
+  }
+
+  .latency-title,
+  .latency-value { vertical-align: middle; }
+
+  .latency-value {
+    color: #c0c0c0;
+    margin-right: 2px;
+  }
+
+  .bar {
+    text-indent: -9999px;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 2px;
+    border: 1px #000 solid;
+    overflow: hidden;
+    //width: 56px;
+
+    span {
+      width: 10px;
+      height: 8px;
+      float: left;
+      border-right: 1px #000 dotted;
+
+      &:hover,
+      &.hover { opacity: .7; }
+
+      &:last-child { border-right: 0; }
+    }
+  }
+}

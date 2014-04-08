@@ -1,0 +1,34 @@
+{
+  "name": "feperf",
+  "version": "1.0.0",
+  "main": [
+    "dist/feperf.js",
+    "dist/feperf.min.js",
+    "dist/feperf.scss",
+    "dist/feperf.css",
+    "dist/feperf-toolbar.html",
+  ],
+  "ignore": [
+    "**/.*",
+    "*.md",
+    "AUTHORS.txt",
+    "Gruntfile.js",
+    "node_modules",
+    "components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "1.9.1"
+  },
+  "homepage": "https://github.com/b1lly/feperf",
+  "authors": [
+    "Billy Bastardi <billy@yext.com>"
+  ],
+  "description": "Front-end performance debugging.",
+  "keywords": [
+    "feperf"
+  ],
+  "license": "MIT",
+  "private": true
+}

@@ -1,0 +1,98 @@
+<div id="wab-debug-toolbar" style="display: none;">
+  <ul id="metrics-wrapper">
+    <li>
+      <span class="network-latency-title">network</span>
+      <span class="network-latency latency-value">800ms</span>
+      <div id="network-latency-bar" class="bar">
+        <span class="domain-lookup green"></span>
+        <span class="tcp-connection yellow"></span>
+        <span class="redirect green"></span>
+        <span class="request red"></span>
+        <span class="response red"></span>
+      </div>
+      <ul id="network-latency-details" class="metric-details">
+        <li>
+          <span class="metric-title">redirect:</span>
+          <span class="metric-value redirect">0ms</span>
+        </li>
+        <li>
+          <span class="metric-title">domain lookup:</span>
+          <span class="metric-value domain-lookup">0ms</span>
+        </li>
+        <li>
+          <span class="metric-title">tcp connection:</span>
+          <span class="metric-value tcp-connection">0ms</span>
+        </li>
+        <li>
+          <span class="metric-title">request:</span>
+          <span class="metric-value request">0ms</span>
+        </li>
+         <li>
+          <span class="metric-title">response:</span>
+          <span class="metric-value response">0ms</span>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span class="parse-latency-title">parsing</span>
+      <span class="latency-value parsing-latency">0ms</span>
+      <div id="parse-latency-bar" class="bar">
+        <span class="dom-parsing red"></span>
+        <span class="resource-parsing"></span>
+      </div>
+      <ul id="parsing-latency-details" class="metric-details">
+        <li>
+          <span class="metric-title">dom:</span>
+          <span class="metric-value dom-parsing">0ms</span>
+        </li>
+        <li>
+          <span class="metric-title">resources:</span>
+          <span class="metric-value resource-parsing">0ms</span>
+        </li>
+        <li>
+          <span class="metric-title">javascript:</span>
+          <span class="metric-value js-parsing">0ms</span>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span class="resource-latency-title">resources</span>
+      <span class="latency-value resource-latency">2823ms</span>
+      <div id="resource-request-latency">
+        <span class="script"></span>
+        <span class="link"></span>
+        <span class="image"></span>
+        <span class="css"></span>
+        <span class="iframe"></span>
+        <span class="xhr"></span>
+      </div>
+      <ul id="parsing-latency-details" class="metric-details">
+        <li>
+          <span class="metric-title">link:</span>
+          <span class="metric-total resource-link">0</span>&nbsp;/
+          <span class="metric-value resource-link">0ms</span>
+        </li>
+        <li>
+          <span class="metric-title">script:</span>
+          <span class="metric-total resource-script">0</span>&nbsp;/
+          <span class="metric-value resource-script">0ms</span>
+        </li>
+        <li>
+          <span class="metric-title">css:</span>
+          <span class="metric-total resource-css">0</span>&nbsp;/
+          <span class="metric-value resource-css">0ms</span>
+        </li>
+        <li>
+          <span class="metric-title">img:</span>
+          <span class="metric-total resource-img">0</span>&nbsp;/
+          <span class="metric-value resource-img">0ms</span>
+        </li>
+        <li>
+          <span class="metric-title">xhr:</span>
+          <span class="metric-total resource-img">0</span>&nbsp;/
+          <span class="metric-value resource-xhr">0ms</span>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
