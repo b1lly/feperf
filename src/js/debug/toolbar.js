@@ -39,7 +39,7 @@ fep.provide('fep.debug.toolbar');
 
   // jQuery Objects
   var $document = $(document),
-      $fepToolbar = $document.find('#fep-debug-toolbar');
+      $fepToolbar = $([]);
 
   /**
    * Initialize the toolbar and interactions --
@@ -50,6 +50,9 @@ fep.provide('fep.debug.toolbar');
       // Make sure the user has the required fep component
       if (typeof fep.debug.init === 'function') {
         _performanceMetrics = fep.debug.init();
+
+        // Incase the toolbar html was loaded after the js evaluated
+        $fepToolbar = $document.find('#fep-debug-toolbar');
 
         this.setNetworkLatency(_performanceMetrics.network.pageLoad);
         this.setResourceLatency(_performanceMetrics.network.resources);
