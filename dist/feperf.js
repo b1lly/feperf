@@ -624,7 +624,7 @@ wab.provide('wab.debug.profiler');
    */
   _profiler.get = function(name) {
     if (typeof name === 'string') {
-      return _profiler.profilers_[name] || wab.log('can\'t find profiler, please create one.');
+      return _profiler.profilers_[name] || new Profiler('anonymous');
     }
   };
 })(wab, window, document);

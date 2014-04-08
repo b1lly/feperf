@@ -6,7 +6,7 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="wabtoolbar.css">
+        <link rel="stylesheet" href="feperf.css">
     </head>
     <body>
       <div id="wab-debug-toolbar" style="display: none;">
@@ -60,6 +60,10 @@
                 <span class="metric-title">resources:</span>
                 <span class="metric-value resource-parsing">0ms</span>
               </li>
+              <li>
+                <span class="metric-title">javascript:</span>
+                <span class="metric-value js-parsing">0ms</span>
+              </li>
             </ul>
           </li>
           <li>
@@ -103,11 +107,8 @@
           </li>
         </ul>
       </div>
-      <script>window.jQuery || document.write('<script src="jquery-1.9.1.min.js"><\/script>')</script>
-      <script src="src/wab.js"></script>
-      <script src="src/debug.js"></script>
-      <script src="src/debug/profiler.js"></script>
-      <script src="src/debug/toolbar.js"></script>
+      <script>window.jQuery || document.write('<script src="jquery.1.9.1.min.js"><\/script>')</script>
+      <script src="feperf.min.js"></script>
       <script type="text/javascript">
         setTimeout(function() {
           wab.debug.toolbar.init();

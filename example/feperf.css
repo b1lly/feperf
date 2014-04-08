@@ -1,0 +1,90 @@
+#wab-debug-toolbar {
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-family: verdana;
+  font-size: 9px;
+  color: #fff;
+  letter-spacing: 1px;
+  font-weight: bold; }
+  #wab-debug-toolbar.detailed {
+    font-size: 14px; }
+  #wab-debug-toolbar #metrics-wrapper {
+    font-size: 0;
+    list-style-type: none;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px #000 solid;
+    box-shadow: 2px 2px 4px #555; }
+    #wab-debug-toolbar #metrics-wrapper > li {
+      font-size: 9px;
+      display: inline-block;
+      border-right: 1px #444 solid;
+      padding: 10px 10px; }
+      #wab-debug-toolbar #metrics-wrapper > li > span {
+        vertical-align: middle; }
+      #wab-debug-toolbar #metrics-wrapper > li:hover {
+        cursor: pointer;
+        background-color: #222; }
+  #wab-debug-toolbar .metric-details {
+    display: none;
+    list-style-type: none;
+    margin: 0 0 0 -10px;
+    padding: 0;
+    top: 32px;
+    position: absolute;
+    background-color: #444;
+    box-shadow: 2px 2px 4px #555;
+    border-radius: 2px;
+    border: 1px #000 solid; }
+    #wab-debug-toolbar .metric-details > li {
+      padding: 10px;
+      font-weight: normal;
+      border-bottom: 1px #555 dotted; }
+      #wab-debug-toolbar .metric-details > li:last-child {
+        border-bottom: 0; }
+      #wab-debug-toolbar .metric-details > li .metric-title {
+        display: inline-block;
+        min-width: 100px; }
+      #wab-debug-toolbar .metric-details > li .metric-total {
+        display: inline-block;
+        color: #c0c0c0; }
+      #wab-debug-toolbar .metric-details > li:hover, #wab-debug-toolbar .metric-details > li.hover {
+        background-color: #333; }
+  #wab-debug-toolbar .green {
+    color: #4bac44; }
+  #wab-debug-toolbar .red {
+    color: #e26363; }
+  #wab-debug-toolbar .yellow {
+    color: #babe4d; }
+  #wab-debug-toolbar .bar .green {
+    background-color: #4bac44; }
+  #wab-debug-toolbar .bar .red {
+    background-color: #e26363; }
+  #wab-debug-toolbar .bar .yellow {
+    background-color: #babe4d; }
+  #wab-debug-toolbar .latency-title,
+  #wab-debug-toolbar .latency-value {
+    vertical-align: middle; }
+  #wab-debug-toolbar .latency-value {
+    color: #c0c0c0;
+    margin-right: 2px; }
+  #wab-debug-toolbar .bar {
+    text-indent: -9999px;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 2px;
+    border: 1px #000 solid;
+    overflow: hidden; }
+    #wab-debug-toolbar .bar span {
+      width: 10px;
+      height: 8px;
+      float: left;
+      border-right: 1px #000 dotted; }
+      #wab-debug-toolbar .bar span:hover, #wab-debug-toolbar .bar span.hover {
+        opacity: .7; }
+      #wab-debug-toolbar .bar span:last-child {
+        border-right: 0; }
