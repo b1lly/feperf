@@ -1,19 +1,5 @@
 module.exports = function( grunt ) {
-
   'use strict';
-
-  var distpaths = [
-      'dist/feperf.js',
-      'dist/feperf.min.map',
-      'dist/feperf.min.js'
-    ],
-    readOptionalJSON = function( filepath ) {
-      var data = {};
-      try {
-        data = grunt.file.readJSON( filepath );
-      } catch(e) {}
-      return data;
-    };
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
