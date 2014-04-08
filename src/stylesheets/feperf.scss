@@ -1,10 +1,10 @@
-$wab-green: #4bac44;
-$wab-red: #e26363;
-$wab-yellow: #babe4d;
+$fep-green: #4bac44;
+$fep-red: #e26363;
+$fep-yellow: #babe4d;
 
 $font-color: #fff;
 
-#wab-debug-toolbar {
+#fep-debug-toolbar {
   background-color: #333;
   position: fixed;
   top: 0;
@@ -79,14 +79,14 @@ $font-color: #fff;
     }
   }
 
-  .green { color: $wab-green; }
-  .red { color: $wab-red; }
-  .yellow { color: $wab-yellow; }
+  .green { color: $fep-green; }
+  .red { color: $fep-red; }
+  .yellow { color: $fep-yellow; }
 
   .bar {
-    .green { background-color: $wab-green; }
-    .red { background-color: $wab-red; }
-    .yellow { background-color: $wab-yellow; }
+    .green { background-color: $fep-green; }
+    .red { background-color: $fep-red; }
+    .yellow { background-color: $fep-yellow; }
   }
 
   .latency-title,

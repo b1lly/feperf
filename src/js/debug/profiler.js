@@ -1,9 +1,9 @@
 /**
  * Parsing/profiling module
  */
-wab.provide('wab.debug.profiler');
-(function(wab, window, document, undefined) {
-  var _profiler = wab.debug.profiler;
+fep.provide('fep.debug.profiler');
+(function(fep, window, document, undefined) {
+  var _profiler = fep.debug.profiler;
 
   /**
    * A collection of profiles, keyed by their name
@@ -27,7 +27,7 @@ wab.provide('wab.debug.profiler');
    */
   Profiler.prototype.start = function() {
     this.startTime = new Date();
-    wab.log('started profiling')
+    fep.log('started profiling')
   };
 
   /**
@@ -37,7 +37,7 @@ wab.provide('wab.debug.profiler');
   Profiler.prototype.stop = function() {
     this.endTime = new Date();
     this.timeElapsed = this.endTime - this.startTime;
-    wab.log(this.timeElapsed);
+    fep.log(this.timeElapsed);
   };
 
   /**
@@ -53,14 +53,14 @@ wab.provide('wab.debug.profiler');
    */
   _profiler.create = function(name) {
     if (typeof name !== 'string') {
-      return wab.log('please provide a profiler name.');
+      return fep.log('please provide a profiler name.');
     }
 
     var profiler = new Profiler(name);
 
     _profiler.profilers_[name] = profiler;
 
-    wab.log(_profiler.profilers_);
+    fep.log(_profiler.profilers_);
     return profiler;
   };
 
@@ -73,4 +73,4 @@ wab.provide('wab.debug.profiler');
       return _profiler.profilers_[name] || new Profiler('anonymous');
     }
   };
-})(wab, window, document);
+})(fep, window, document);

@@ -2,12 +2,12 @@
  * Handle all the debug toolbar interactions
  * and data manipulations
  *
- * @requires wab.debug module
+ * @requires fep.debug module
  * @requires jQuery 1.9.1+
  */
-wab.provide('wab.debug.toolbar');
-(function(wab, window, document, undefined) {
-  var _toolbar = wab.debug.toolbar,
+fep.provide('fep.debug.toolbar');
+(function(fep, window, document, undefined) {
+  var _toolbar = fep.debug.toolbar,
       _performanceMetrics = {};
 
   // Max expected speeds before considered slow --
@@ -39,7 +39,7 @@ wab.provide('wab.debug.toolbar');
 
   // jQuery Objects
   var $document = $(document),
-      $wabToolbar = $document.find('#wab-debug-toolbar');
+      $fepToolbar = $document.find('#fep-debug-toolbar');
 
   /**
    * Initialize the toolbar and interactions --
@@ -47,9 +47,9 @@ wab.provide('wab.debug.toolbar');
    */
   _toolbar.init = function() {
     if (_toolbar.jQuerySupport()) {
-      // Make sure the user has the required wab component
-      if (typeof wab.debug.init === 'function') {
-        _performanceMetrics = wab.debug.init();
+      // Make sure the user has the required fep component
+      if (typeof fep.debug.init === 'function') {
+        _performanceMetrics = fep.debug.init();
 
         this.setNetworkLatency(_performanceMetrics.network.pageLoad);
         this.setResourceLatency(_performanceMetrics.network.resources);
@@ -58,14 +58,14 @@ wab.provide('wab.debug.toolbar');
         this.linkMetricsToBar();
         this.bindClose();
 
-        $wabToolbar.fadeIn(); // Display our Toolbar to user
-        $document.find('body').css('margin-top', $wabToolbar.outerHeight(true));
+        $fepToolbar.fadeIn(); // Display our Toolbar to user
+        $document.find('body').css('margin-top', $fepToolbar.outerHeight(true));
       } else {
-        wab.log('This toolbar requires the wab.debug module!');
+        fep.log('This toolbar requires the fep.debug module!');
         return false;
       }
     } else {
-      wab.log('jQuery is required in order to use this!');
+      fep.log('jQuery is required in order to use this!');
       return false;
     }
   };
@@ -81,17 +81,17 @@ wab.provide('wab.debug.toolbar');
   /**
    * Create a map of the network metrics to their relative DOM nodes
    * and update them with the data from the debug Module
-   * @param {object} data the collection of network metrics from wab.debug
+   * @param {object} data the collection of network metrics from fep.debug
    */
   _toolbar.setNetworkLatency = function(data) {
     var domMap = {
-      totalLatency : $wabToolbar.find('.network-latency'),
-      redirect : $wabToolbar.find('.redirect'),
-      domainLookup : $wabToolbar.find('.domain-lookup'),
-      tcpConnection : $wabToolbar.find('.tcp-connection'),
-      request : $wabToolbar.find('.request'),
-      response : $wabToolbar.find('.response'),
-      unload : $wabToolbar.find('unload')
+      totalLatency : $fepToolbar.find('.network-latency'),
+      redirect : $fepToolbar.find('.redirect'),
+      domainLookup : $fepToolbar.find('.domain-lookup'),
+      tcpConnection : $fepToolbar.find('.tcp-connection'),
+      request : $fepToolbar.find('.request'),
+      response : $fepToolbar.find('.response'),
+      unload : $fepToolbar.find('unload')
     };
 
     _toolbar.updateDom(domMap, data, 'networkLatency');
@@ -100,14 +100,14 @@ wab.provide('wab.debug.toolbar');
   /**
    * Create a map of the parsing metrics to their relative DOM nodes
    * and update them with the data from the debug Module
-   * @param {Object} data the collection of network metrics from wab.debug
+   * @param {Object} data the collection of network metrics from fep.debug
    */
   _toolbar.setParsingLatency = function(data) {
     var domMap = {
-      totalLatency : $wabToolbar.find('.parsing-latency'),
-      domParsing : $wabToolbar.find('.dom-parsing'),
-      resourceParsing : $wabToolbar.find('.resource-parsing'),
-      jsParsing: $wabToolbar.find('.js-parsing')
+      totalLatency : $fepToolbar.find('.parsing-latency'),
+      domParsing : $fepToolbar.find('.dom-parsing'),
+      resourceParsing : $fepToolbar.find('.resource-parsing'),
+      jsParsing: $fepToolbar.find('.js-parsing')
     };
 
     _toolbar.updateDom(domMap, data, 'parsingLatency');
@@ -115,12 +115,12 @@ wab.provide('wab.debug.toolbar');
 
   _toolbar.setResourceLatency = function(data) {
     var domMap = {
-      totalLatency : $wabToolbar.find('.resource-latency'),
-      link : $wabToolbar.find('.resource-link'),
-      script : $wabToolbar.find('.resource-script'),
-      css : $wabToolbar.find('.resource-css'),
-      img : $wabToolbar.find('.resource-img'),
-      xmlhttprequest : $wabToolbar.find('.resource-xhr')
+      totalLatency : $fepToolbar.find('.resource-latency'),
+      link : $fepToolbar.find('.resource-link'),
+      script : $fepToolbar.find('.resource-script'),
+      css : $fepToolbar.find('.resource-css'),
+      img : $fepToolbar.find('.resource-img'),
+      xmlhttprequest : $fepToolbar.find('.resource-xhr')
     };
 
     // Update DOM latency value
@@ -173,7 +173,7 @@ wab.provide('wab.debug.toolbar');
    * Bind the interaction between the metrics and their details
    */
   _toolbar.bindDetails = function() {
-    $wabToolbar.find('#metrics-wrapper li').hover(function() {
+    $fepToolbar.find('#metrics-wrapper li').hover(function() {
       $(this).find('.metric-details').stop().fadeToggle('fast');
     });
   };
@@ -183,7 +183,7 @@ wab.provide('wab.debug.toolbar');
    * piece of the bar is being hovered over, and vice versa
    */
   _toolbar.linkMetricsToBar = function() {
-    $('#wab-debug-toolbar .bar span, #wab-debug-toolbar .metric-details li').hover(function(e) {
+    $('#fep-debug-toolbar .bar span, #fep-debug-toolbar .metric-details li').hover(function(e) {
       var $self = $(this),
           $parent = $self.parents('li');
 
@@ -199,11 +199,11 @@ wab.provide('wab.debug.toolbar');
    * Hides the toolbar on click
    */
   _toolbar.bindClose = function() {
-    $wabToolbar.find('.js-toggle-close').on('click', function() {
-      $wabToolbar.hide();
+    $fepToolbar.find('.js-toggle-close').on('click', function() {
+      $fepToolbar.hide();
       $document.find('body').css('margin-top', 'auto');
     });
   };
 
   return _toolbar;
-})(wab, window, document);
+})(fep, window, document);

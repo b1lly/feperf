@@ -16,7 +16,7 @@
  * - AJAX tracking support
  */
 
-var wab = (function(window, document, undefined) {
+var fep = (function(window, document, undefined) {
   return {
     loggin: false,
 
@@ -60,7 +60,7 @@ var wab = (function(window, document, undefined) {
     },
 
     /**
-     * Forward warnings to wab.log function
+     * Forward warnings to fep.log function
      * @param {string} msg the message to log
      */
     warn: function(msg, trace) {
@@ -208,16 +208,16 @@ var wab = (function(window, document, undefined) {
             }
 
             // Recurse if we're merging plain objects or arrays
-            if (deep && copy && (wab.isPlainObject(copy) || (copyIsArray = wab.isArray(copy)))) {
+            if (deep && copy && (fep.isPlainObject(copy) || (copyIsArray = fep.isArray(copy)))) {
               if (copyIsArray) {
                 copyIsArray = false;
-                clone = src && wab.isArray(src) ? src : [];
+                clone = src && fep.isArray(src) ? src : [];
               } else {
-                clone = src && wab.isPlainObject(src) ? src : {};
+                clone = src && fep.isPlainObject(src) ? src : {};
               }
 
               // Never move original objects, clone them
-              target[name] = wab.extend(deep, clone, copy);
+              target[name] = fep.extend(deep, clone, copy);
 
             // Don't bring in undefined values
             } else if (copy !== undefined) {

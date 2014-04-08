@@ -20,7 +20,7 @@ module.exports = function( grunt ) {
     concat: {
       dist:{
         src: [
-          'src/js/wab.js',
+          'src/js/base.js',
           'src/js/debug.js',
           'src/js/debug/profiler.js',
           'src/js/debug/toolbar.js',

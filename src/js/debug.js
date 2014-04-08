@@ -2,9 +2,9 @@
  * Debugging helper methods to track performance --
  * e.g. Network Latency, Parsing Latency, Event Listeners, Memory usage
  */
-wab.provide('wab.debug');
-(function(wab, window, document, undefined) {
-  var _debug = wab.debug;
+fep.provide('fep.debug');
+(function(fep, window, document, undefined) {
+  var _debug = fep.debug;
 
   // Contains a list of all the page stats from our API
   _debug.pageStats = {};
@@ -27,7 +27,7 @@ wab.provide('wab.debug');
       events : this.eventListeners
     };
 
-    _debug.pageStats = wab.extend(_debug.pageStats, stats);
+    _debug.pageStats = fep.extend(_debug.pageStats, stats);
 
     return _debug.pageStats;
   };
@@ -69,7 +69,7 @@ wab.provide('wab.debug');
         obj[property] = obj[property] >= 0 ? Math.round(obj[property] * 100) / 100 + 'ms' : undefined;
       }
     } else {
-      wab.warn('Sorry, you need to pass in an object!');
+      fep.warn('Sorry, you need to pass in an object!');
     }
 
     return obj;
@@ -97,7 +97,7 @@ wab.provide('wab.debug');
         initiators[entries[i].initiatorType].push(entries[i]);
       }
     } else {
-      wab.warn('Your browser doesn\'t support this feature!');
+      fep.warn('Your browser doesn\'t support this feature!');
     }
 
     initiators = {
@@ -190,7 +190,7 @@ wab.provide('wab.debug');
    * and override it to add some timestamps in our tracestack
    */
   _debug.profileAllJs = function() {
-    wab.log('hook into js call stack and future calls -- to profile performance');
+    fep.log('hook into js call stack and future calls -- to profile performance');
   };
 
   /**
@@ -204,7 +204,7 @@ wab.provide('wab.debug');
     if (typeof fn === 'function') {
       fn.call(this);
     } else {
-      wab.warn('Please provide a callback function!');
+      fep.warn('Please provide a callback function!');
       return false;
     }
 
@@ -241,7 +241,7 @@ wab.provide('wab.debug');
 
         //mssupport msFirstPaint instead of secureConnectionStart after loadEventEnd
     } else {
-      wab.warn('Browser not supported yet!');
+      fep.warn('Browser not supported yet!');
     }
 
     return {
@@ -264,7 +264,7 @@ wab.provide('wab.debug');
       _timing = window.performance.timing;
 
       if (_debug.profiler) {
-        jsLatency = wab.debug.profiler.get('jsLoad').getTime();
+        jsLatency = fep.debug.profiler.get('jsLoad').getTime();
       }
 
       parsingLatency = {
@@ -274,7 +274,7 @@ wab.provide('wab.debug');
         jsParsing: jsLatency
       };
     } else {
-      wab.warn('Browser not supported yet!');
+      fep.warn('Browser not supported yet!');
     }
 
     parsingLatency = _debug.appendMilliseconds(parsingLatency);
@@ -286,4 +286,4 @@ wab.provide('wab.debug');
   };
 
   return _debug;
-})(wab, window, document);
+})(fep, window, document);

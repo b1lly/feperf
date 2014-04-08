@@ -16,7 +16,7 @@
  * - AJAX tracking support
  */
 
-var wab = (function(window, document, undefined) {
+var fep = (function(window, document, undefined) {
   return {
     loggin: false,
 
@@ -60,7 +60,7 @@ var wab = (function(window, document, undefined) {
     },
 
     /**
-     * Forward warnings to wab.log function
+     * Forward warnings to fep.log function
      * @param {string} msg the message to log
      */
     warn: function(msg, trace) {
@@ -208,16 +208,16 @@ var wab = (function(window, document, undefined) {
             }
 
             // Recurse if we're merging plain objects or arrays
-            if (deep && copy && (wab.isPlainObject(copy) || (copyIsArray = wab.isArray(copy)))) {
+            if (deep && copy && (fep.isPlainObject(copy) || (copyIsArray = fep.isArray(copy)))) {
               if (copyIsArray) {
                 copyIsArray = false;
-                clone = src && wab.isArray(src) ? src : [];
+                clone = src && fep.isArray(src) ? src : [];
               } else {
-                clone = src && wab.isPlainObject(src) ? src : {};
+                clone = src && fep.isPlainObject(src) ? src : {};
               }
 
               // Never move original objects, clone them
-              target[name] = wab.extend(deep, clone, copy);
+              target[name] = fep.extend(deep, clone, copy);
 
             // Don't bring in undefined values
             } else if (copy !== undefined) {
@@ -267,9 +267,9 @@ var wab = (function(window, document, undefined) {
  * Debugging helper methods to track performance --
  * e.g. Network Latency, Parsing Latency, Event Listeners, Memory usage
  */
-wab.provide('wab.debug');
-(function(wab, window, document, undefined) {
-  var _debug = wab.debug;
+fep.provide('fep.debug');
+(function(fep, window, document, undefined) {
+  var _debug = fep.debug;
 
   // Contains a list of all the page stats from our API
   _debug.pageStats = {};
@@ -292,7 +292,7 @@ wab.provide('wab.debug');
       events : this.eventListeners
     };
 
-    _debug.pageStats = wab.extend(_debug.pageStats, stats);
+    _debug.pageStats = fep.extend(_debug.pageStats, stats);
 
     return _debug.pageStats;
   };
@@ -334,7 +334,7 @@ wab.provide('wab.debug');
         obj[property] = obj[property] >= 0 ? Math.round(obj[property] * 100) / 100 + 'ms' : undefined;
       }
     } else {
-      wab.warn('Sorry, you need to pass in an object!');
+      fep.warn('Sorry, you need to pass in an object!');
     }
 
     return obj;
@@ -362,7 +362,7 @@ wab.provide('wab.debug');
         initiators[entries[i].initiatorType].push(entries[i]);
       }
     } else {
-      wab.warn('Your browser doesn\'t support this feature!');
+      fep.warn('Your browser doesn\'t support this feature!');
     }
 
     initiators = {
@@ -455,7 +455,7 @@ wab.provide('wab.debug');
    * and override it to add some timestamps in our tracestack
    */
   _debug.profileAllJs = function() {
-    wab.log('hook into js call stack and future calls -- to profile performance');
+    fep.log('hook into js call stack and future calls -- to profile performance');
   };
 
   /**
@@ -469,7 +469,7 @@ wab.provide('wab.debug');
     if (typeof fn === 'function') {
       fn.call(this);
     } else {
-      wab.warn('Please provide a callback function!');
+      fep.warn('Please provide a callback function!');
       return false;
     }
 
@@ -506,7 +506,7 @@ wab.provide('wab.debug');
 
         //mssupport msFirstPaint instead of secureConnectionStart after loadEventEnd
     } else {
-      wab.warn('Browser not supported yet!');
+      fep.warn('Browser not supported yet!');
     }
 
     return {
@@ -529,7 +529,7 @@ wab.provide('wab.debug');
       _timing = window.performance.timing;
 
       if (_debug.profiler) {
-        jsLatency = wab.debug.profiler.get('jsLoad').getTime();
+        jsLatency = fep.debug.profiler.get('jsLoad').getTime();
       }
 
       parsingLatency = {
@@ -539,7 +539,7 @@ wab.provide('wab.debug');
         jsParsing: jsLatency
       };
     } else {
-      wab.warn('Browser not supported yet!');
+      fep.warn('Browser not supported yet!');
     }
 
     parsingLatency = _debug.appendMilliseconds(parsingLatency);
@@ -551,13 +551,13 @@ wab.provide('wab.debug');
   };
 
   return _debug;
-})(wab, window, document);
+})(fep, window, document);
 /**
  * Parsing/profiling module
  */
-wab.provide('wab.debug.profiler');
-(function(wab, window, document, undefined) {
-  var _profiler = wab.debug.profiler;
+fep.provide('fep.debug.profiler');
+(function(fep, window, document, undefined) {
+  var _profiler = fep.debug.profiler;
 
   /**
    * A collection of profiles, keyed by their name
@@ -581,7 +581,7 @@ wab.provide('wab.debug.profiler');
    */
   Profiler.prototype.start = function() {
     this.startTime = new Date();
-    wab.log('started profiling')
+    fep.log('started profiling')
   };
 
   /**
@@ -591,7 +591,7 @@ wab.provide('wab.debug.profiler');
   Profiler.prototype.stop = function() {
     this.endTime = new Date();
     this.timeElapsed = this.endTime - this.startTime;
-    wab.log(this.timeElapsed);
+    fep.log(this.timeElapsed);
   };
 
   /**
@@ -607,14 +607,14 @@ wab.provide('wab.debug.profiler');
    */
   _profiler.create = function(name) {
     if (typeof name !== 'string') {
-      return wab.log('please provide a profiler name.');
+      return fep.log('please provide a profiler name.');
     }
 
     var profiler = new Profiler(name);
 
     _profiler.profilers_[name] = profiler;
 
-    wab.log(_profiler.profilers_);
+    fep.log(_profiler.profilers_);
     return profiler;
   };
 
@@ -627,17 +627,17 @@ wab.provide('wab.debug.profiler');
       return _profiler.profilers_[name] || new Profiler('anonymous');
     }
   };
-})(wab, window, document);
+})(fep, window, document);
 /**
  * Handle all the debug toolbar interactions
  * and data manipulations
  *
- * @requires wab.debug module
+ * @requires fep.debug module
  * @requires jQuery 1.9.1+
  */
-wab.provide('wab.debug.toolbar');
-(function(wab, window, document, undefined) {
-  var _toolbar = wab.debug.toolbar,
+fep.provide('fep.debug.toolbar');
+(function(fep, window, document, undefined) {
+  var _toolbar = fep.debug.toolbar,
       _performanceMetrics = {};
 
   // Max expected speeds before considered slow --
@@ -669,7 +669,7 @@ wab.provide('wab.debug.toolbar');
 
   // jQuery Objects
   var $document = $(document),
-      $wabToolbar = $document.find('#wab-debug-toolbar');
+      $fepToolbar = $document.find('#fep-debug-toolbar');
 
   /**
    * Initialize the toolbar and interactions --
@@ -677,9 +677,9 @@ wab.provide('wab.debug.toolbar');
    */
   _toolbar.init = function() {
     if (_toolbar.jQuerySupport()) {
-      // Make sure the user has the required wab component
-      if (typeof wab.debug.init === 'function') {
-        _performanceMetrics = wab.debug.init();
+      // Make sure the user has the required fep component
+      if (typeof fep.debug.init === 'function') {
+        _performanceMetrics = fep.debug.init();
 
         this.setNetworkLatency(_performanceMetrics.network.pageLoad);
         this.setResourceLatency(_performanceMetrics.network.resources);
@@ -688,14 +688,14 @@ wab.provide('wab.debug.toolbar');
         this.linkMetricsToBar();
         this.bindClose();
 
-        $wabToolbar.fadeIn(); // Display our Toolbar to user
-        $document.find('body').css('margin-top', $wabToolbar.outerHeight(true));
+        $fepToolbar.fadeIn(); // Display our Toolbar to user
+        $document.find('body').css('margin-top', $fepToolbar.outerHeight(true));
       } else {
-        wab.log('This toolbar requires the wab.debug module!');
+        fep.log('This toolbar requires the fep.debug module!');
         return false;
       }
     } else {
-      wab.log('jQuery is required in order to use this!');
+      fep.log('jQuery is required in order to use this!');
       return false;
     }
   };
@@ -711,17 +711,17 @@ wab.provide('wab.debug.toolbar');
   /**
    * Create a map of the network metrics to their relative DOM nodes
    * and update them with the data from the debug Module
-   * @param {object} data the collection of network metrics from wab.debug
+   * @param {object} data the collection of network metrics from fep.debug
    */
   _toolbar.setNetworkLatency = function(data) {
     var domMap = {
-      totalLatency : $wabToolbar.find('.network-latency'),
-      redirect : $wabToolbar.find('.redirect'),
-      domainLookup : $wabToolbar.find('.domain-lookup'),
-      tcpConnection : $wabToolbar.find('.tcp-connection'),
-      request : $wabToolbar.find('.request'),
-      response : $wabToolbar.find('.response'),
-      unload : $wabToolbar.find('unload')
+      totalLatency : $fepToolbar.find('.network-latency'),
+      redirect : $fepToolbar.find('.redirect'),
+      domainLookup : $fepToolbar.find('.domain-lookup'),
+      tcpConnection : $fepToolbar.find('.tcp-connection'),
+      request : $fepToolbar.find('.request'),
+      response : $fepToolbar.find('.response'),
+      unload : $fepToolbar.find('unload')
     };
 
     _toolbar.updateDom(domMap, data, 'networkLatency');
@@ -730,14 +730,14 @@ wab.provide('wab.debug.toolbar');
   /**
    * Create a map of the parsing metrics to their relative DOM nodes
    * and update them with the data from the debug Module
-   * @param {Object} data the collection of network metrics from wab.debug
+   * @param {Object} data the collection of network metrics from fep.debug
    */
   _toolbar.setParsingLatency = function(data) {
     var domMap = {
-      totalLatency : $wabToolbar.find('.parsing-latency'),
-      domParsing : $wabToolbar.find('.dom-parsing'),
-      resourceParsing : $wabToolbar.find('.resource-parsing'),
-      jsParsing: $wabToolbar.find('.js-parsing')
+      totalLatency : $fepToolbar.find('.parsing-latency'),
+      domParsing : $fepToolbar.find('.dom-parsing'),
+      resourceParsing : $fepToolbar.find('.resource-parsing'),
+      jsParsing: $fepToolbar.find('.js-parsing')
     };
 
     _toolbar.updateDom(domMap, data, 'parsingLatency');
@@ -745,12 +745,12 @@ wab.provide('wab.debug.toolbar');
 
   _toolbar.setResourceLatency = function(data) {
     var domMap = {
-      totalLatency : $wabToolbar.find('.resource-latency'),
-      link : $wabToolbar.find('.resource-link'),
-      script : $wabToolbar.find('.resource-script'),
-      css : $wabToolbar.find('.resource-css'),
-      img : $wabToolbar.find('.resource-img'),
-      xmlhttprequest : $wabToolbar.find('.resource-xhr')
+      totalLatency : $fepToolbar.find('.resource-latency'),
+      link : $fepToolbar.find('.resource-link'),
+      script : $fepToolbar.find('.resource-script'),
+      css : $fepToolbar.find('.resource-css'),
+      img : $fepToolbar.find('.resource-img'),
+      xmlhttprequest : $fepToolbar.find('.resource-xhr')
     };
 
     // Update DOM latency value
@@ -803,7 +803,7 @@ wab.provide('wab.debug.toolbar');
    * Bind the interaction between the metrics and their details
    */
   _toolbar.bindDetails = function() {
-    $wabToolbar.find('#metrics-wrapper li').hover(function() {
+    $fepToolbar.find('#metrics-wrapper li').hover(function() {
       $(this).find('.metric-details').stop().fadeToggle('fast');
     });
   };
@@ -813,7 +813,7 @@ wab.provide('wab.debug.toolbar');
    * piece of the bar is being hovered over, and vice versa
    */
   _toolbar.linkMetricsToBar = function() {
-    $('#wab-debug-toolbar .bar span, #wab-debug-toolbar .metric-details li').hover(function(e) {
+    $('#fep-debug-toolbar .bar span, #fep-debug-toolbar .metric-details li').hover(function(e) {
       var $self = $(this),
           $parent = $self.parents('li');
 
@@ -829,11 +829,11 @@ wab.provide('wab.debug.toolbar');
    * Hides the toolbar on click
    */
   _toolbar.bindClose = function() {
-    $wabToolbar.find('.js-toggle-close').on('click', function() {
-      $wabToolbar.hide();
+    $fepToolbar.find('.js-toggle-close').on('click', function() {
+      $fepToolbar.hide();
       $document.find('body').css('margin-top', 'auto');
     });
   };
 
   return _toolbar;
-})(wab, window, document);
+})(fep, window, document);
