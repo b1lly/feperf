@@ -38,8 +38,8 @@ fep.provide('fep.debug.toolbar');
   };
 
   // jQuery Objects
-  var $document = $(document),
-      $fepToolbar = $([]);
+  var $document = undefined,
+      $fepToolbar = undefined;
 
   /**
    * Initialize the toolbar and interactions --
@@ -52,6 +52,7 @@ fep.provide('fep.debug.toolbar');
         _performanceMetrics = fep.debug.init();
 
         // Incase the toolbar html was loaded after the js evaluated
+        $document = $(document);
         $fepToolbar = $document.find('#fep-debug-toolbar');
 
         this.setNetworkLatency(_performanceMetrics.network.pageLoad);
