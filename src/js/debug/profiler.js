@@ -27,7 +27,7 @@ fep.provide('fep.debug.profiler');
    */
   Profiler.prototype.start = function() {
     this.startTime = new Date();
-    fep.log('started profiling')
+    fep.log('started profiling: ' + this.name);
   };
 
   /**
@@ -37,7 +37,7 @@ fep.provide('fep.debug.profiler');
   Profiler.prototype.stop = function() {
     this.endTime = new Date();
     this.timeElapsed = this.endTime - this.startTime;
-    fep.log(this.timeElapsed);
+    fep.log('stopped profiling: ' + this.name + ' (' + this.timeElapsed + ')');
   };
 
   /**

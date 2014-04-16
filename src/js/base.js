@@ -18,7 +18,7 @@
 
 var fep = (function(window, document, undefined) {
   return {
-    loggin: false,
+    logging: false,
 
     /**
      * Provide a namespace for a particular module if it doesn't already exist
