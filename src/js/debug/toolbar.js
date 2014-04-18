@@ -132,9 +132,11 @@ fep.provide('fep.debug.toolbar');
 
     // Update DOM resource count
     for (var metric in data.resourceCountByInitiator) {
-      domMap[metric].first()
-        .removeClass('red green yellow')
-        .html(data.resourceCountByInitiator[metric]);
+      if (domMap[metric]) {
+        domMap[metric].first()
+          .removeClass('red green yellow')
+          .html(data.resourceCountByInitiator[metric]);
+      }
     };
   };
 
