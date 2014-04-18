@@ -166,10 +166,12 @@ fep.provide('fep.debug.toolbar');
       }
 
       // Update the node
-      domMap[metric]
-        .removeClass('red yellow green')
-        .html(data[metric])
-        .addClass(color);
+      if (domMap[metric]) {
+        domMap[metric]
+          .removeClass('red yellow green')
+          .html(data[metric])
+          .addClass(color);
+      }
     }
   };
 
