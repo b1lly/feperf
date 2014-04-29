@@ -53,8 +53,6 @@ var fep = (function(window, document, undefined) {
             typeof window.console.log === 'function') {
               trace ? msg = caller + ': ' + msg : msg;
               warning ? window.console.warn(msg) : window.console.log(msg);
-        } else {
-          alert('Get a modern browser you noob!');
         }
       }
     },
