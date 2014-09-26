@@ -6,7 +6,7 @@
     "dist/feperf.min.js",
     "dist/feperf.scss",
     "dist/feperf.css",
-    "dist/feperf-toolbar.html",
+    "dist/feperf-toolbar.html"
   ],
   "ignore": [
     "**/.*",
