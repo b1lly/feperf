@@ -3,15 +3,19 @@ module.exports = function( grunt ) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    concat: {
-      dist:{
-        src: [
-          'src/js/base.js',
-          'src/js/debug.js',
-          'src/js/debug/profiler.js',
-          'src/js/debug/toolbar.js',
-        ],
-        dest: 'dist/feperf.js'
+
+    requirejs: {
+      compile: {
+        options: {
+          mainConfigFile: "./src/js/require.config.js",
+          name: "fep",
+          out: "dist/feperf.js",
+          optimize: "none",
+          wrap: {
+            startFile: "./src/js/intro.js",
+            endFile: "./src/js/outro.js"
+          }
+        }
       }
     },
 
@@ -56,7 +60,8 @@ module.exports = function( grunt ) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
 
   // Default grunt
-  grunt.registerTask('default', ['concat', 'uglify', 'copy']);
+  grunt.registerTask('default', ['requirejs', 'uglify', 'copy']);
 };

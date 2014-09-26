@@ -1,9 +1,9 @@
 /**
  * Parsing/profiling module
  */
-fep.provide('fep.debug.profiler');
-(function(fep, window, document, undefined) {
-  var _profiler = fep.debug.profiler;
+
+define(['fep/core'], function(fep) {
+  var _profiler = {}
 
   /**
    * A collection of profiles, keyed by their name
@@ -73,4 +73,6 @@ fep.provide('fep.debug.profiler');
       return _profiler.profilers_[name] || new Profiler('anonymous');
     }
   };
-})(fep, window, document);
+
+  return _profiler;
+});

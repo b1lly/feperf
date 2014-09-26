@@ -16,44 +16,13 @@
  * - AJAX tracking support
  */
 
-var fep = (function(window, document, undefined) {
-  return {
+define(function() {
+  var _fep = {
     logging: false,
 
-    /**
-     * Provide a namespace for a particular module if it doesn't already exist
-     * to enable modules to be augemented much easier
-     * @param {string} namespaceString A string representation of the namespace
-     */
-    provide: function(namespaceString) {
-      var modules = namespaceString.split('.'),
-          namespace = window;
-
-      for (var i = 0; i < modules.length; i++) {
-        namespace[modules[i]] = namespace[modules[i]] || {};
-        namespace = namespace[modules[i]];
-      }
-    },
-
-    /**
-     * Enhanced logging functionality that will log the
-     * function name of the function thats logging information
-     * @param {string} msg the message to log
-     * @param {boolean=false} trace display the function that called logging
-     * @param {boolean=false} warning display this message as a warning or a subtle message
-     */
-    log: function(msg, trace, warning) {
-      if (this.logging) {
-        var caller = arguments.callee.caller.name || 'anonymous';
-
-        trace = trace || false,
-        warning = warning || false;
-
-        if (typeof window.console === 'object' &&
-            typeof window.console.log === 'function') {
-              trace ? msg = caller + ': ' + msg : msg;
-              warning ? window.console.warn(msg) : window.console.log(msg);
-        }
+    register: function(namespace, module) {
+      if (typeof this[namespace] === undefined) {
+        this[namespace] = module;
       }
     },
 
@@ -99,73 +68,6 @@ var fep = (function(window, document, undefined) {
       }
 
       return size;
-    },
-
-    /**
-     * Set the caret position on an input element.
-     * Optionally select/highlight a chunk of text if you pass in a distance
-     *
-     * @param {jQueryObject} $el Reference of the input to position the cursor on
-     * @param {number} pos The index of where to position the cursor
-     * @param {number} opt_dis Optional distance to select, starting at the pos
-     */
-    setCaretPosition: function($el, pos, opt_dis) {
-      var htmlEl = $el.get(0); // Reference the HTMLObject
-
-      opt_dis = opt_dis || 0;
-
-      // The native HTMLObject gives us access to the Range and Selection API
-      if (htmlEl) {
-        // IE Support for cursor position
-        if (htmlEl.createTextRange) {
-          // Timeout required to focus properly
-          setTimeout(function() {
-            var range = htmlEl.createTextRange();
-            range.move('character', pos);
-            range.moveEnd('character', opt_dis);
-            range.select();
-            htmlEl.focus();
-          }, 0);
-        } else {
-          // Chrome, Safari, Firefox support
-          if (htmlEl.setSelectionRange) {
-            htmlEl.setSelectionRange(pos, pos + opt_dis)
-
-            // Timeout required to focus properly
-            setTimeout(function() {
-              $el.focus();
-            }, 0);
-          }
-        }
-      }
-    },
-
-    /**
-     * Get the caret position of a particular input
-     * NOTE: The input most be focused to get the proper value
-     * @param {jQueryObject} $el Reference of the input box
-     * @return {number} the current index of the caret
-     */
-    getCaretPosition: function($el) {
-      var htmlEl = $el.get(0);
-
-      // Modern Browser Support
-      if (htmlEl.selectionEnd) {
-        return htmlEl.selectionEnd;
-      } else if (htmlEl.createTextRange) { // IE Support
-        var range = document.selection.createRange();
-
-        var len = htmlEl.value.length;
-
-        // Create a working TextRange that lives only in the input
-        var textInputRange = htmlEl.createTextRange();
-        textInputRange.moveToBookmark(range.getBookmark());
-
-        return -textInputRange.moveStart("character", -len);
-      }
-
-      // If there is no selection, we assume the selection is at the 0 index
-      return 0;
     },
 
     /**
@@ -259,4 +161,6 @@ var fep = (function(window, document, undefined) {
       }, opt_speed);
     }
   };
-})(window, document);
+
+  return _fep;
+});

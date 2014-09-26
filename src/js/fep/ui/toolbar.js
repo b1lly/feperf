@@ -1,13 +1,9 @@
 /**
  * Handle all the debug toolbar interactions
  * and data manipulations
- *
- * @requires fep.debug module
- * @requires jQuery 1.9.1+
  */
-fep.provide('fep.debug.toolbar');
-(function(fep, window, document, undefined) {
-  var _toolbar = fep.debug.toolbar,
+define(['jquery', 'fep/core', 'fep/debug', 'fep/profiler'], function($, fep, debug, profiler) {
+  var _toolbar = {},
       _performanceMetrics = {};
 
   // Max expected speeds before considered slow --
@@ -48,8 +44,8 @@ fep.provide('fep.debug.toolbar');
   _toolbar.init = function() {
     if (_toolbar.jQuerySupport()) {
       // Make sure the user has the required fep component
-      if (typeof fep.debug.init === 'function') {
-        _performanceMetrics = fep.debug.init();
+      if (typeof debug.init === 'function') {
+        _performanceMetrics = debug.init();
 
         // Incase the toolbar html was loaded after the js evaluated
         $document = $(document);
@@ -213,5 +209,6 @@ fep.provide('fep.debug.toolbar');
     });
   };
 
+  fep.register('toolbar', _toolbar);
   return _toolbar;
-})(fep, window, document);
+});

@@ -2,9 +2,8 @@
  * Debugging helper methods to track performance --
  * e.g. Network Latency, Parsing Latency, Event Listeners, Memory usage
  */
-fep.provide('fep.debug');
-(function(fep, window, document, undefined) {
-  var _debug = fep.debug;
+define(['fep/core'], function(fep) {
+  var _debug = {};
 
   // Contains a list of all the page stats from our API
   _debug.pageStats = {};
@@ -286,4 +285,4 @@ fep.provide('fep.debug');
   };
 
   return _debug;
-})(fep, window, document);
+});
