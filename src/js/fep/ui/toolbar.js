@@ -209,6 +209,5 @@ define(['jquery', 'fep/core', 'fep/debug', 'fep/profiler'], function($, fep, deb
     });
   };
 
-  fep.register('toolbar', _toolbar);
   return _toolbar;
 });

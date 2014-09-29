@@ -8,43 +8,42 @@
     } else {
         //Browser globals case. Just assign the
         //result to a property on the global.
-        root.fep = factory();
+        factory();
     }
 }(this, function () {
   var define = function(mod, deps, fn) {
-    var modules = mod.split('/'),
-        moduleDeps = [],
-        namespace = window;
-
+    var namespace = mod.split('/').join('.'),
+        moduleDeps = [];
 
     for (var k = 0; k < deps.length; k ++) {
-      deps[k] = deps[k].replace('/', '.');
+      deps[k] = deps[k].split('/').join('.');
       moduleDeps.push(provide(deps[k]));
     }
 
-
-    for (var i = 0; i < modules.length; i++) {
-      namespace[modules[i]] = namespace[modules[i]] || fn.apply(this, moduleDeps);
-      namespace = namespace[modules[i]];
-    }
+    var module = fn.apply(this, moduleDeps)
+    provide(namespace, module);
   }
 
     /**
      * Provide a namespace for a particular module if it doesn't already exist
      * to enable modules to be augemented much easier
      * @param {string} namespaceString A string representation of the namespace
+     * @param {object=} the module to assign to it, if any
      */
-   var provide = function(namespaceString) {
+   var provide = function(namespaceString, module) {
       var modules = namespaceString.split('.'),
           namespace = window;
 
       for (var i = 0; i < modules.length; i++) {
-        namespace[modules[i]] = namespace[modules[i]] || {};
-        namespace = namespace[modules[i]];
+        if (i === modules.length - 1) {
+          namespace[modules[i]] = namespace[modules[i]] || module || {};
+        } else {
+          namespace[modules[i]] = namespace[modules[i]] || {};
+          namespace = namespace[modules[i]];
+        }
       }
-
-      return namespace;
-    };/**
+    };
+/**
  * Define our main namespace to contain
  * all our general helper functionality and sub-modules
  *
@@ -10402,5 +10401,4 @@ define('fep',[
     //this snippet. Ask almond to synchronously require the
     //module value for 'main' here and return it as the
     //value to use for the public API for the built file.
-    return require('main');
 }));
