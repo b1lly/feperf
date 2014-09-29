@@ -3,7 +3,7 @@
  */
 
 define(['fep/core'], function(fep) {
-  var _profiler = {}
+  var _profiler = {};
 
   /**
    * A collection of profiles, keyed by their name
@@ -74,5 +74,6 @@ define(['fep/core'], function(fep) {
     }
   };
 
+  fep.register('profiler', _profiler);
   return _profiler;
 });

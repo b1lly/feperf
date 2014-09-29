@@ -11,9 +11,17 @@ module.exports = function( grunt ) {
           name: "fep",
           out: "dist/feperf.js",
           optimize: "none",
-          wrap: {
-            startFile: "./src/js/intro.js",
-            endFile: "./src/js/outro.js"
+          skipModuleInsertion: true,
+          onModuleBundleComplete: function (data) {
+            var fs = require('fs'),
+              amdclean = require('amdclean'),
+              outputFile = data.path;
+
+            fs.writeFileSync(outputFile, amdclean.clean({
+              'filePath': outputFile,
+              'prefixMode': 'camelCase',
+              'globalModules': ['fep']
+            }));
           }
         }
       }

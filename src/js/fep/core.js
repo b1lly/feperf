@@ -20,8 +20,14 @@ define(function() {
   var _fep = {
     logging: false,
 
+    /**
+     * Register will extend the main fep object and attach a new module to it
+     * based on the namespace you provide
+     * @param {string} namespace The namespace to attach to the global fep object
+     * @param {object} module Object of the containing submodule
+     */
     register: function(namespace, module) {
-      if (typeof this[namespace] === undefined) {
+      if (typeof this[namespace] === 'undefined') {
         this[namespace] = module;
       }
     },

@@ -2,7 +2,7 @@
  * Debugging helper methods to track performance --
  * e.g. Network Latency, Parsing Latency, Event Listeners, Memory usage
  */
-define(['fep/core'], function(fep) {
+define(['fep/core', 'fep/profiler'], function(fep, profiler) {
   var _debug = {};
 
   // Contains a list of all the page stats from our API
@@ -262,8 +262,8 @@ define(['fep/core'], function(fep) {
     if (_debug.hasTimingSupport()) {
       _timing = window.performance.timing;
 
-      if (_debug.profiler) {
-        jsLatency = fep.debug.profiler.get('jsLoad').getTime();
+      if (profiler) {
+        jsLatency = profiler.get('jsLoad').getTime();
       }
 
       parsingLatency = {
@@ -284,5 +284,6 @@ define(['fep/core'], function(fep) {
     }
   };
 
+  fep.register('debug', _debug);
   return _debug;
 });
