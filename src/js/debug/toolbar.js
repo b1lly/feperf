@@ -45,11 +45,11 @@ fep.provide('fep.debug.toolbar');
    * Initialize the toolbar and interactions --
    * Add all the performance data from the debug API
    */
-  _toolbar.init = function() {
+  _toolbar.init = function(settings, data) {
     if (_toolbar.jQuerySupport()) {
       // Make sure the user has the required fep component
       if (typeof fep.debug.init === 'function') {
-        _performanceMetrics = fep.debug.init();
+        _performanceMetrics = fep.debug.init(settings, data);
 
         // Incase the toolbar html was loaded after the js evaluated
         $document = $(document);
@@ -171,7 +171,7 @@ fep.provide('fep.debug.toolbar');
       if (domMap[metric]) {
         domMap[metric]
           .removeClass('red yellow green')
-          .html(data[metric])
+          .html(data[metric] +'ms')
           .addClass(color);
       }
     }

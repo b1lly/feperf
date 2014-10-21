@@ -8,6 +8,7 @@ module.exports = function( grunt ) {
         src: [
           'src/js/base.js',
           'src/js/debug.js',
+          'src/js/debug/ajax.js',
           'src/js/debug/profiler.js',
           'src/js/debug/toolbar.js',
         ],

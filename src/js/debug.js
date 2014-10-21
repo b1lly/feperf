@@ -6,6 +6,11 @@ fep.provide('fep.debug');
 (function(fep, window, document, undefined) {
   var _debug = fep.debug;
 
+  _debug.settings = {
+    remoteUrl: '',
+    ajaxSave: false
+  };
+
   // Contains a list of all the page stats from our API
   _debug.pageStats = {};
 
@@ -17,19 +22,42 @@ fep.provide('fep.debug');
 
   _debug.cssRules = {};
 
-  _debug.init = function(){
+  _debug.init = function(settings, data){
+    data = data || {};
+    fep.extend(this.settings, settings);
+
     this.profileAllJs();
     this.trackEventListeners();
 
     var stats = {
       network : this.profileNetwork(),
       parsing : this.profilePageLoad(),
-      events : this.eventListeners
+      events : this.eventListeners,
+      user: data.user,
+      url: data.pageUrl,
+      server : data.server,
     };
 
     _debug.pageStats = fep.extend(_debug.pageStats, stats);
 
+    if (this.settings.ajaxSave && this.settings.remoteUrl !== '') {
+      _debug.saveToServer(this.remoteUrl, stats);
+    }
+
     return _debug.pageStats;
+  };
+
+  /**
+   * Send the pageData object to the server
+   */
+  _debug.saveToServer = function() {
+    var saveData = fep.extend(true, {}, _debug.pageStats);
+
+    // TODO(billy) Make this less fragile
+    delete saveData.events.listeners;
+    delete saveData.network.resources.resourcesByInitiator;
+
+    $.post(this.remoteUrl, JSON.stringify(saveData));
   };
 
   /**
@@ -63,10 +91,10 @@ fep.provide('fep.debug');
    * @param {Object} obj object with properties to append 'ms' to
    * @returns {Object} new object with 'ms' concatenated to all properties
    */
-  _debug.appendMilliseconds = function(obj) {
+  _debug.convertMilliseconds = function(obj) {
     if (typeof obj === 'object') {
       for (var property in obj) {
-        obj[property] = obj[property] >= 0 ? Math.round(obj[property] * 100) / 100 + 'ms' : undefined;
+        obj[property] = obj[property] >= 0 ? Math.round(obj[property] * 100) / 100 : undefined;
       }
     } else {
       fep.warn('Sorry, you need to pass in an object!');
@@ -127,7 +155,7 @@ fep.provide('fep.debug');
     }
 
     latencySumByInitiator.totalLatency = _debug.getResourceLatencyTotal(latencySumByInitiator);
-    latencySumByInitiator = _debug.appendMilliseconds(latencySumByInitiator);
+    latencySumByInitiator = _debug.convertMilliseconds(latencySumByInitiator);
 
     return latencySumByInitiator;
   };
@@ -236,7 +264,7 @@ fep.provide('fep.debug');
           totalLatency : _timing.responseEnd - _timing.fetchStart
         };
 
-        networkLatency = _debug.appendMilliseconds(networkLatency);
+        networkLatency = _debug.convertMilliseconds(networkLatency);
         resources = _debug.getResourcesByInitiator();
 
         //mssupport msFirstPaint instead of secureConnectionStart after loadEventEnd
@@ -245,7 +273,6 @@ fep.provide('fep.debug');
     }
 
     return {
-      timing : _timing,
       pageLoad : networkLatency,
       resources : resources
     };
@@ -277,10 +304,9 @@ fep.provide('fep.debug');
       fep.warn('Browser not supported yet!');
     }
 
-    parsingLatency = _debug.appendMilliseconds(parsingLatency);
+    parsingLatency = _debug.convertMilliseconds(parsingLatency);
 
     return {
-      timing : _timing,
       parsingLatency: parsingLatency
     }
   };
