@@ -111,7 +111,7 @@
       <script src="feperf.min.js"></script>
       <script type="text/javascript">
         setTimeout(function() {
-          fep.debug.toolbar.init({
+          fep.debug.init({
             remoteUrl: 'save/to/endpoint',
             ajaxSave: true
           }, {
@@ -123,6 +123,8 @@
 
             }
           });
+
+          fep.debug.toolbar.init();
         }, 0);
       </script>
     </body>

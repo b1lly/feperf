@@ -38,10 +38,23 @@ fep.provide('fep.debug');
       server : data.server,
     };
 
+    if (fep.size(_debug.pageStats) === 0) {
+      if (this.settings.ajaxSave && this.settings.remoteUrl !== '') {
+        _debug.saveToServer(stats);
+      }
+    }
+
     _debug.pageStats = fep.extend(_debug.pageStats, stats);
 
-    if (this.settings.ajaxSave && this.settings.remoteUrl !== '') {
-      _debug.saveToServer(this.remoteUrl, stats);
+    return _debug.pageStats;
+  };
+
+  /**
+   * Get the page statistics
+   */
+  _debug.getStats = function() {
+    if (fep.size(_debug.pageStats) === 0) {
+      _debug.init();
     }
 
     return _debug.pageStats;
@@ -50,14 +63,14 @@ fep.provide('fep.debug');
   /**
    * Send the pageData object to the server
    */
-  _debug.saveToServer = function() {
-    var saveData = fep.extend(true, {}, _debug.pageStats);
+  _debug.saveToServer = function(stats) {
+    var saveData = fep.extend(true, {}, stats);
 
     // TODO(billy) Make this less fragile
     delete saveData.events.listeners;
     delete saveData.network.resources.resourcesByInitiator;
 
-    $.post(this.remoteUrl, JSON.stringify(saveData));
+    $.post(this.settings.remoteUrl, JSON.stringify(saveData));
   };
 
   /**

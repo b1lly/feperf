@@ -45,11 +45,11 @@ fep.provide('fep.debug.toolbar');
    * Initialize the toolbar and interactions --
    * Add all the performance data from the debug API
    */
-  _toolbar.init = function(settings, data) {
+  _toolbar.init = function() {
     if (_toolbar.jQuerySupport()) {
       // Make sure the user has the required fep component
-      if (typeof fep.debug.init === 'function') {
-        _performanceMetrics = fep.debug.init(settings, data);
+      if (typeof fep.debug.getStats === 'function') {
+        _performanceMetrics = fep.debug.getStats();
 
         // Incase the toolbar html was loaded after the js evaluated
         $document = $(document);

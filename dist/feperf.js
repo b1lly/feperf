@@ -301,10 +301,23 @@ fep.provide('fep.debug');
       server : data.server,
     };
 
+    if (fep.size(_debug.pageStats) === 0) {
+      if (this.settings.ajaxSave && this.settings.remoteUrl !== '') {
+        _debug.saveToServer(stats);
+      }
+    }
+
     _debug.pageStats = fep.extend(_debug.pageStats, stats);
 
-    if (this.settings.ajaxSave && this.settings.remoteUrl !== '') {
-      _debug.saveToServer(this.remoteUrl, stats);
+    return _debug.pageStats;
+  };
+
+  /**
+   * Get the page statistics
+   */
+  _debug.getStats = function() {
+    if (fep.size(_debug.pageStats) === 0) {
+      _debug.init();
     }
 
     return _debug.pageStats;
@@ -313,14 +326,14 @@ fep.provide('fep.debug');
   /**
    * Send the pageData object to the server
    */
-  _debug.saveToServer = function() {
-    var saveData = fep.extend(true, {}, _debug.pageStats);
+  _debug.saveToServer = function(stats) {
+    var saveData = fep.extend(true, {}, stats);
 
     // TODO(billy) Make this less fragile
     delete saveData.events.listeners;
     delete saveData.network.resources.resourcesByInitiator;
 
-    $.post(this.remoteUrl, JSON.stringify(saveData));
+    $.post(this.settings.remoteUrl, JSON.stringify(saveData));
   };
 
   /**
@@ -576,24 +589,6 @@ fep.provide('fep.debug');
 
   return _debug;
 })(fep, window, document);
-fep.provide('fep.debug.ajax');
-(function() {
-  _ajax = fep.debug.ajax;
-
-  _ajax.remoteUrl = '';
-
-  _ajax.init = function(remoteUrl, data) {
-    var saveData = fep.extend(true, {}, data);
-
-    this.remoteUrl = remoteUrl;
-
-    // TODO(billy) Make this less fragile
-    delete saveData.events.listeners;
-    delete saveData.network.resources.resourcesByInitiator;
-
-    $.post(remoteUrl, JSON.stringify(saveData));
-  }
-})();
 /**
  * Parsing/profiling module
  */
@@ -717,11 +712,11 @@ fep.provide('fep.debug.toolbar');
    * Initialize the toolbar and interactions --
    * Add all the performance data from the debug API
    */
-  _toolbar.init = function(settings, data) {
+  _toolbar.init = function() {
     if (_toolbar.jQuerySupport()) {
       // Make sure the user has the required fep component
-      if (typeof fep.debug.init === 'function') {
-        _performanceMetrics = fep.debug.init(settings, data);
+      if (typeof fep.debug.getStats === 'function') {
+        _performanceMetrics = fep.debug.getStats();
 
         // Incase the toolbar html was loaded after the js evaluated
         $document = $(document);
